@@ -33,5 +33,11 @@ public class XMLFORMControllerMain {
         void initialize() {
 
         }
+        public  void btnSave (){
+
+        }
+        public  void btnLoad (){
+
+        }
 }
 
