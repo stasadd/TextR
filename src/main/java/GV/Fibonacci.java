@@ -29,7 +29,7 @@ public class Fibonacci {
         for(int i=1;number.compareTo(BigInteger.valueOf(i))>-1;i++){
             Long l = Math.round(BigDecimal.valueOf(i).divide(BigDecimal.valueOf(number.intValue())).multiply(BigDecimal.valueOf(100)).doubleValue());
             percentage = l.intValue();
-            BigInteger help = findNumeric(BigInteger.valueOf(i));
+            BigInteger help = findNumericArr(BigInteger.valueOf(i));
             outputdata+=help.toString();
             outputdata+=" ";
         }
