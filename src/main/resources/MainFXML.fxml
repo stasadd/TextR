@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXProgressBar?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -12,7 +13,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SB.XMLFORMControllerMain">
    <children>
@@ -24,6 +24,7 @@
                   <items>
                     <MenuItem fx:id="idLoad" mnemonicParsing="false" onAction="#btnLoad" text="Load" />
                         <MenuItem fx:id="idSave" mnemonicParsing="false" onAction="#btnSave" text="Save" />
+                        <MenuItem fx:id="idCansel" mnemonicParsing="false" onAction="#btnLoad" text="Cansel" />
                   </items>
                 </Menu>
               </menus>
@@ -49,22 +50,32 @@
          </center>
          <bottom>
             <BorderPane prefHeight="84.0" prefWidth="748.0" BorderPane.alignment="CENTER">
-               <center>
-                  <HBox prefHeight="12.0" prefWidth="748.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label prefHeight="37.0" prefWidth="128.0" text="Фібоначі число" />
-                        <JFXTextField fx:id="idFildFibonachi"  prefHeight="36.0" prefWidth="491.0" />
-                        <JFXButton fx:id="idbtnFibonachi" onAction="#btnFibonacci" prefHeight="34.0" prefWidth="106.0" text="Розрахувати " />
-                     </children>
-                  </HBox>
-               </center>
                <bottom>
-                  <Pane prefHeight="42.0" prefWidth="748.0" BorderPane.alignment="CENTER">
+                  <AnchorPane prefHeight="20.0" prefWidth="748.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXProgressBar layoutX="14.0" layoutY="17.0" prefHeight="15.0" prefWidth="720.0" />
+                        <JFXProgressBar fx:id="idProgress" prefHeight="36.0" prefWidth="748.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="idProcessProgress" layoutX="250.0" layoutY="-1.0" text="Status" />
+                        <Label fx:id="idProcessPercent" layoutX="431.0" text="100%" />
                      </children>
-                  </Pane>
+                  </AnchorPane>
                </bottom>
+               <center>
+                  <AnchorPane prefHeight="60.0" prefWidth="748.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label prefHeight="37.0" prefWidth="128.0" text="Фібоначі число">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <JFXTextField fx:id="idFildFibonachi" prefHeight="36.0" prefWidth="501.0" />
+                              <JFXButton fx:id="idbtnFibonachi" onAction="#btnFibonacci" prefHeight="34.0" prefWidth="106.0" text="Розрахувати " />
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </center>
             </BorderPane>
          </bottom>
       </BorderPane>
