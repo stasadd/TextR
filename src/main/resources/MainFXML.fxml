@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXProgressBar?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
@@ -10,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SB.XMLFORMControllerMain">
    <children>
@@ -32,18 +35,38 @@
          <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <center>
-                  <JFXTextArea fx:id="idFile" prefHeight="263.0" prefWidth="355.0" BorderPane.alignment="CENTER" />
+                  <JFXTextArea fx:id="idFile" prefHeight="208.0" prefWidth="748.0" BorderPane.alignment="CENTER" />
                </center>
                <top>
                   <HBox prefHeight="30.0" prefWidth="348.0" BorderPane.alignment="CENTER">
                      <children>
                         <Label prefHeight="17.0" prefWidth="161.0" text="Шлах до файлу" />
-                        <JFXTextField fx:id="idFilePath" prefHeight="25.0" prefWidth="585.0" />
+                        <JFXTextField fx:id="idFilePath" prefHeight="25.0" prefWidth="713.0" />
                      </children>
                   </HBox>
                </top>
             </BorderPane>
          </center>
+         <bottom>
+            <BorderPane prefHeight="84.0" prefWidth="748.0" BorderPane.alignment="CENTER">
+               <center>
+                  <HBox prefHeight="12.0" prefWidth="748.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label prefHeight="37.0" prefWidth="128.0" text="Фібоначі число" />
+                        <JFXTextField fx:id="idFildFibonachi" prefHeight="36.0" prefWidth="491.0" />
+                        <JFXButton fx:id="idbtnFibonachi" prefHeight="34.0" prefWidth="106.0" text="Розрахувати " />
+                     </children>
+                  </HBox>
+               </center>
+               <bottom>
+                  <Pane prefHeight="42.0" prefWidth="748.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXProgressBar layoutX="14.0" layoutY="17.0" prefHeight="15.0" prefWidth="720.0" />
+                     </children>
+                  </Pane>
+               </bottom>
+            </BorderPane>
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>
