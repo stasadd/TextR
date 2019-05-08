@@ -12,7 +12,7 @@ public class Start extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setWidth(1200);
-        primaryStage.setHeight(800);
+        primaryStage.setHeight(700);
         primaryStage.setTitle("Notepad--");
         primaryStage.show();
     }
