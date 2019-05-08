@@ -8,16 +8,16 @@ import java.util.List;
 public class Fibonacci {
     String outputdata;
     BigInteger number;
-    int percentеge;
+    int percentage;
 
     public void setNumber(BigInteger number) {
         this.number = number;
-        percentеge = 0;
+        percentage = 0;
     }
 
     public Fibonacci() {
         this.number = BigInteger.valueOf(1);
-        percentеge = 0;
+        percentage = 0;
     }
 
     public Fibonacci(String inputdata) {
@@ -28,7 +28,7 @@ public class Fibonacci {
         outputdata = "";
         for(int i=1;number.compareTo(BigInteger.valueOf(i))>-1;i++){
             Long l = Math.round(BigDecimal.valueOf(i).divide(BigDecimal.valueOf(number.intValue())).multiply(BigDecimal.valueOf(100)).doubleValue());
-            percentеge = l.intValue();
+            percentage = l.intValue();
             BigInteger help = findNumeric(BigInteger.valueOf(i));
             outputdata+=help.toString();
             outputdata+=" ";
@@ -36,8 +36,8 @@ public class Fibonacci {
         return outputdata;
     }
 
-    public int getPercentеge() {
-        return percentеge;
+    public int getPercentage() {
+        return percentage;
     }
 
     BigInteger findNumeric(BigInteger n) {
