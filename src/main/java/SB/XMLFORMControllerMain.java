@@ -94,6 +94,7 @@ public class XMLFORMControllerMain {
 //                                try {
 //                                        Fibonacci fibonacci = new Fibonacci(number);
 //                                        String rezult = fibonacci.createRezult();
+//                                        FileSaver.saveString("C:\\Users\\td779\\Desktop\\text2.txt", rezult);
 //
 //                                } catch (Exception ex) {
 //                                        System.out.println("error fibonachi");
