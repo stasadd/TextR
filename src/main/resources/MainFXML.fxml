@@ -70,7 +70,7 @@
                                  </HBox.margin>
                               </Label>
                               <JFXTextField fx:id="idFildFibonachi" prefHeight="36.0" prefWidth="501.0" />
-                              <JFXButton fx:id="idbtnFibonachi" onAction="#btnFibonachi" prefHeight="34.0" prefWidth="106.0" text="Розрахувати " />
+                              <JFXButton fx:id="idbtnFibonachi" onAction="#btnFibonacci" prefHeight="34.0" prefWidth="106.0" text="Розрахувати " />
                            </children>
                         </HBox>
                      </children>
