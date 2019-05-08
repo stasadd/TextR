@@ -68,39 +68,39 @@ public class XMLFORMControllerMain {
 
         public void btnFibonacci(){
 
-                try {
-                        ExecutorService service = Executors.newFixedThreadPool(10);
-                        String number = idFildFibonachi.getText();
-                        Fibonacci fibonacci = new Fibonacci(number);
-                        Callable<String> c = new Callable<String>() {
-                                @Override
-                                public String call() throws Exception {
-                                        return fibonacci.createRezult();
-                                }
-                        };
-                        Future<String> futureCollable = service.submit(c);
-                        FileSaver.saveString("C:\\Users\\td779\\Desktop\\text2.txt", futureCollable.get());
-
-                        service.shutdown();
-
-                } catch (Exception ex) {
-                        System.out.println("error");
-                }
-
-//                new Thread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                                String number = idFildFibonachi.getText();
-//                                try {
-//                                        Fibonacci fibonacci = new Fibonacci(number);
-//                                        String rezult = fibonacci.createRezult();
-//                                        FileSaver.saveString("C:\\Users\\td779\\Desktop\\text2.txt", rezult);
-//
-//                                } catch (Exception ex) {
-//                                        System.out.println("error fibonachi");
+//                try {
+//                        ExecutorService service = Executors.newFixedThreadPool(10);
+//                        String number = idFildFibonachi.getText();
+//                        Fibonacci fibonacci = new Fibonacci(number);
+//                        Callable<String> c = new Callable<String>() {
+//                                @Override
+//                                public String call() throws Exception {
+//                                        return fibonacci.createRezult();
 //                                }
-//                        }
-//                }).start();
+//                        };
+//                        Future<String> futureCollable = service.submit(c);
+//                        FileSaver.saveString("C:\\Users\\td779\\Desktop\\text2.txt", futureCollable.get());
+//
+//                        service.shutdown();
+//
+//                } catch (Exception ex) {
+//                        System.out.println("error");
+//                }
+
+                new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                                String number = idFildFibonachi.getText();
+                                try {
+                                        Fibonacci fibonacci = new Fibonacci(number);
+                                        String rezult = fibonacci.createRezult();
+                                        FileSaver.saveString("C:\\Users\\td779\\Desktop\\text2.txt", rezult);
+
+                                } catch (Exception ex) {
+                                        System.out.println("error fibonachi");
+                                }
+                        }
+                }).start();
 
         }
 }
