@@ -8,11 +8,11 @@ public class Start extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/startFormFXML.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/MainFXML.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setWidth(1200);
-        primaryStage.setHeight(700);
+        primaryStage.setWidth(750);
+        primaryStage.setHeight(350);
         primaryStage.setTitle("Notepad--");
         primaryStage.show();
     }
