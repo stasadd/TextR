@@ -9,9 +9,10 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:controller="SB.XMLFORMControllerMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane layoutX="244.0" layoutY="66.0" prefHeight="340.0" prefWidth="748.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -19,8 +20,8 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem fx:id="idLoad" onAction="#btnLoad" mnemonicParsing="false" text="Load" />
-                        <MenuItem fx:id="idSave" onAction="#btnSave" mnemonicParsing="false" text="Save" />
+                    <MenuItem fx:id="idLoad" mnemonicParsing="false" text="Load" />
+                        <MenuItem fx:id="idSave" mnemonicParsing="false" text="Save" />
                   </items>
                 </Menu>
               </menus>
@@ -30,20 +31,21 @@
             </MenuBar>
          </top>
          <left>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label layoutX="29.0" layoutY="7.0" prefHeight="17.0" prefWidth="161.0" text="Шлах до файлу" />
-               </children>
-            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </left>
          <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <top>
-                  <JFXTextField fx:id="idFilePath" prefHeight="25.0" prefWidth="241.0" BorderPane.alignment="CENTER" />
-               </top>
                <center>
                   <JFXTextArea fx:id="idFile" prefHeight="263.0" prefWidth="355.0" BorderPane.alignment="CENTER" />
                </center>
+               <top>
+                  <HBox prefHeight="30.0" prefWidth="348.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="161.0" text="Шлах до файлу" />
+                        <JFXTextField fx:id="idFilePath" prefHeight="25.0" prefWidth="241.0" />
+                     </children>
+                  </HBox>
+               </top>
             </BorderPane>
          </center>
       </BorderPane>
