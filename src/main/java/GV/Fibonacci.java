@@ -1,5 +1,6 @@
 package GV;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,13 +8,16 @@ import java.util.List;
 public class Fibonacci {
     String outputdata;
     BigInteger number;
+    int percentеge;
 
     public void setNumber(BigInteger number) {
         this.number = number;
+        percentеge = 0;
     }
 
     public Fibonacci() {
         this.number = BigInteger.valueOf(1);
+        percentеge = 0;
     }
 
     public Fibonacci(String inputdata) {
@@ -23,11 +27,17 @@ public class Fibonacci {
     public String createRezult(){
         outputdata = "";
         for(int i=1;number.compareTo(BigInteger.valueOf(i))>-1;i++){
+            Long l = Math.round(BigDecimal.valueOf(i).divide(BigDecimal.valueOf(number.intValue())).multiply(BigDecimal.valueOf(100)).doubleValue());
+            percentеge = l.intValue();
             BigInteger help = findNumeric(BigInteger.valueOf(i));
             outputdata+=help.toString();
             outputdata+=" ";
         }
         return outputdata;
+    }
+
+    public int getPercentеge() {
+        return percentеge;
     }
 
     BigInteger findNumeric(BigInteger n) {
