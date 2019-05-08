@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:controller="SB.XMLFORMControllerMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane layoutX="244.0" layoutY="66.0" prefHeight="340.0" prefWidth="748.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -30,20 +30,22 @@
             </MenuBar>
          </top>
          <left>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </left>
-         <center>
-            <Pane prefHeight="329.0" prefWidth="348.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXTextField fx:id="idFilePath" layoutX="104.0" layoutY="27.0" prefHeight="25.0" prefWidth="241.0" />
-                  <Label layoutY="31.0" prefHeight="17.0" prefWidth="97.0" text="Шлах до файлу" />
-                  <JFXTextArea fx:id="idFile" layoutX="-5.0" layoutY="75.0" prefHeight="243.0" prefWidth="355.0" />
+                  <Label layoutX="29.0" layoutY="7.0" prefHeight="17.0" prefWidth="161.0" text="Шлах до файлу" />
                </children>
             </Pane>
+         </left>
+         <center>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <top>
+                  <JFXTextField fx:id="idFilePath" prefHeight="25.0" prefWidth="241.0" BorderPane.alignment="CENTER" />
+               </top>
+               <center>
+                  <JFXTextArea fx:id="idFile" prefHeight="263.0" prefWidth="355.0" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
          </center>
-         <right>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </right>
       </BorderPane>
    </children>
 </AnchorPane>
