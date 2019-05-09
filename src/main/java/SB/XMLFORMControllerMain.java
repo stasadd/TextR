@@ -19,6 +19,7 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
@@ -107,9 +108,8 @@ public class XMLFORMControllerMain {
                                         });
                                 } catch (Exception ex) {
                                         System.out.println("file not found");
-                                        //new ErrorMassage().ShowMessage("fff", (Stage) idProgress.getScene().getWindow());
                                         JOptionPane.showMessageDialog(null,
-                                                "ALERT MESSAGE",
+                                                "Файл для загрузки не найден",
                                                 "TITLE",
                                                 JOptionPane.WARNING_MESSAGE);
                                 }
@@ -123,6 +123,28 @@ public class XMLFORMControllerMain {
                         FibonacciTask fibonacciTask = new FibonacciTask(idFildFibonachi.getText());
                         idProgress.progressProperty().unbind();
                         idProgress.progressProperty().bind(fibonacciTask.progressProperty());
+
+                        Thread timer = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                        try {
+                                                int perc = fibonacciTask.getPercentage();
+                                                while(perc <= 100){
+                                                        int finalPerc = perc;
+                                                        Platform.runLater(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                        setPercentage(finalPerc);
+                                                                }
+                                                        });
+                                                        perc = fibonacciTask.getPercentage();
+                                                        Thread.sleep(200);
+                                                        if(perc > 100) break;
+                                                }
+                                        } catch (Exception ex) {}
+                                }
+                        });
+
                         fibonacciTask.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,
                                 new EventHandler<WorkerStateEvent>() {
                                         @Override
@@ -132,7 +154,11 @@ public class XMLFORMControllerMain {
                                                 setStatus(Status.Ready);
                                         }
                                 });
+
                         new Thread(fibonacciTask).start();
+                        timer.setDaemon(true);
+                        timer.start();
+
                 }
                 catch (Exception ex) {
                         new ErrorMassage().ShowMessage("fff", (Stage) idProgress.getScene().getWindow());
@@ -141,6 +167,10 @@ public class XMLFORMControllerMain {
 
         private void setStatus(Status status) {
                 idProcessProgress.setText(status.toString());
+        }
+
+        private void setPercentage(int percent) {
+                idProcessPercent.setText(percent + "%");
         }
 
 }
