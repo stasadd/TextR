@@ -10,6 +10,8 @@ import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
@@ -66,7 +68,29 @@ public class XMLFORMControllerMain {
         @FXML
         void initialize() {
                 idFilePath.setText("C:\\Users\\td779\\Desktop\\text.txt");
-                idProgress.setProgress(0);
+                setProgress(0);
+
+                idFile.textProperty().addListener(new ChangeListener<String>() {
+                        @Override
+                        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                                setStatus(Status.Editing);
+                                setPercentage(0);
+                                setProgress(0);
+                                new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                                try {
+                                                        Thread.sleep(3000);
+                                                } catch (Exception ex) {
+
+                                                }
+                                                setStatus(Status.Ready);
+                                                setPercentage(100);
+                                                setProgress(1);
+                                        }
+                                }).start();
+                        }
+                });
         }
 
         public  void btnSave (){
@@ -74,19 +98,13 @@ public class XMLFORMControllerMain {
                         @Override
                         public void run() {
                                 try {
-                                        Platform.runLater(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                        setStatus(Status.Saving);
-                                                }
-                                        });
+                                        setStatus(Status.Saving);
+                                        setPercentage(0);
+                                        setProgress(0);
                                         FileSaver.saveString(idFilePath.getText(), idFile.getText());
-                                        Platform.runLater(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                        setStatus(Status.Ready);
-                                                }
-                                        });
+                                        setStatus(Status.Ready);
+                                        setPercentage(100);
+                                        setProgress(1);
                                 } catch (Exception ex) {
                                         new Alert(Alert.AlertType.ERROR, " Не удалось сохранить в файл  ").showAndWait();
                                 }
@@ -98,26 +116,19 @@ public class XMLFORMControllerMain {
                 new Thread(new Runnable() {
                         @Override
                         public void run() {
-                                Platform.runLater(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                                setStatus(Status.Loading);
-                                        }
-                                });
+                                setStatus(Status.Loading);
+                                setPercentage(0);
+                                setProgress(0);
                                 String filePath = idFilePath.getText();
                                 try {
                                         String text = FileLoader.loadString(filePath);
                                         idFile.setText(text);
-                                        Platform.runLater(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                        setStatus(Status.Ready);
-                                                }
-                                        });
+                                        setStatus(Status.Ready);
+                                        setPercentage(100);
+                                        setProgress(1);
                                 } catch (Exception ex) {
                                         System.out.println("file not found");
-                                        new Alert(Alert.AlertType.ERROR, " Файл для загрузки не найден  ").showAndWait();
-
+                                        //new Alert(Alert.AlertType.ERROR, " Файл для загрузки не найден  ").showAndWait();
                                 }
                         }
                 }).start();
@@ -134,8 +145,6 @@ public class XMLFORMControllerMain {
                 setStatus(Status.Xsearching);
                 String ErrorMs = null;
                 try {
-
-
                         try {
 
                                 Integer.parseInt(idFildFibonachi.getText());
@@ -144,7 +153,6 @@ public class XMLFORMControllerMain {
                                         ErrorMs = "Число должно быть целым (если оно дробное)";
                                 else
                                         ErrorMs = "Значение должно быть числовым (если текст)";
-
                         }
                         FibonacciTask fibonacciTask = new FibonacciTask(idFildFibonachi.getText());
                         idProgress.progressProperty().unbind();
@@ -157,12 +165,7 @@ public class XMLFORMControllerMain {
                                                 int perc = fibonacciTask.getPercentage();
                                                 while (perc <= 100) {
                                                         int finalPerc = perc;
-                                                        Platform.runLater(new Runnable() {
-                                                                @Override
-                                                                public void run() {
-                                                                        setPercentage(finalPerc);
-                                                                }
-                                                        });
+                                                        setPercentage(finalPerc);
                                                         perc = fibonacciTask.getPercentage();
                                                         Thread.sleep(200);
                                                         if (perc > 100) break;
@@ -172,19 +175,17 @@ public class XMLFORMControllerMain {
                                 }
                         });
 
-
                         fibonacciTask.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,
                                 new EventHandler<WorkerStateEvent>() {
                                         @Override
-
                                         public void handle(WorkerStateEvent event) {
-
                                                 String rezult = fibonacciTask.getValue();
                                                 FileSaver.saveString("C:\\Users\\td779\\Desktop\\text3.txt", rezult);
                                                 setStatus(Status.Ready);
+                                                setPercentage(100);
+                                                timer.stop();
                                         }
                                 });
-
 
                         new Thread(fibonacciTask).start();
                         timer.setDaemon(true);
@@ -196,12 +197,33 @@ public class XMLFORMControllerMain {
         }
 
         private void setStatus(Status status) {
-                idProcessProgress.setText(status.toString());
+                Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                                idProcessProgress.setText(status.toString());
+                        }
+                });
         }
 
         private void setPercentage(int percent) {
-                idProcessPercent.setText(percent + "%");
+                Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                                idProcessPercent.setText(percent + "%");
+                        }
+                });
         }
+
+        private void setProgress(double step) {
+                Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                                idProgress.setProgress(step);
+                        }
+                });
+        }
+
+
 
 }
 
