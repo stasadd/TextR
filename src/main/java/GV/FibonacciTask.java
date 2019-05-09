@@ -68,7 +68,6 @@ public class FibonacciTask extends Task<String> {
         }
     }
 
-
     @Override
     protected String call() throws Exception {
         return createRezult();

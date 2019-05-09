@@ -2,18 +2,23 @@ package SB;
 
 import GV.Fibonacci;
 import GV.FibonacciTask;
+import TD.ErrorMassage;
 import TD.FileLoader;
+import TD.Status;
 import ZD.FileSaver;
 import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
@@ -63,7 +68,19 @@ public class XMLFORMControllerMain {
                 new Thread(new Runnable() {
                         @Override
                         public void run() {
+                                Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                                setStatus(Status.Saving);
+                                        }
+                                });
                                 FileSaver.saveString(idFilePath.getText(), idFile.getText());
+                                Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                                setStatus(Status.Ready);
+                                        }
+                                });
                         }
                 }).start();
         }
@@ -72,16 +89,36 @@ public class XMLFORMControllerMain {
                 new Thread(new Runnable() {
                         @Override
                         public void run() {
+                                Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                                setStatus(Status.Loading);
+                                        }
+                                });
                                 String filePath = idFilePath.getText();
                                 try {
                                         String text = FileLoader.loadString(filePath);
                                         idFile.setText(text);
-                                } catch (Exception ex) {   }
+                                        Platform.runLater(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                        setStatus(Status.Ready);
+                                                }
+                                        });
+                                } catch (Exception ex) {
+                                        System.out.println("file not found");
+                                        //new ErrorMassage().ShowMessage("fff", (Stage) idProgress.getScene().getWindow());
+                                        JOptionPane.showMessageDialog(null,
+                                                "ALERT MESSAGE",
+                                                "TITLE",
+                                                JOptionPane.WARNING_MESSAGE);
+                                }
                         }
                 }).start();
         }
 
         public void btnFibonacci(){
+                setStatus(Status.Xsearching);
                 try {
                         FibonacciTask fibonacciTask = new FibonacciTask(idFildFibonachi.getText());
                         idProgress.progressProperty().unbind();
@@ -92,13 +129,19 @@ public class XMLFORMControllerMain {
                                         public void handle(WorkerStateEvent event) {
                                                 String rezult = fibonacciTask.getValue();
                                                 FileSaver.saveString("C:\\Users\\td779\\Desktop\\text3.txt", rezult);
+                                                setStatus(Status.Ready);
                                         }
                                 });
                         new Thread(fibonacciTask).start();
                 }
                 catch (Exception ex) {
-
+                        new ErrorMassage().ShowMessage("fff", (Stage) idProgress.getScene().getWindow());
                 }
         }
+
+        private void setStatus(Status status) {
+                idProcessProgress.setText(status.toString());
+        }
+
 }
 

@@ -11,8 +11,8 @@ public class Start extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/MainFXML.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setWidth(750);
-        primaryStage.setHeight(350);
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(600);
         primaryStage.setTitle("Notepad--");
         primaryStage.show();
     }
