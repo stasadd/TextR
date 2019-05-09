@@ -31,7 +31,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class XMLFORMControllerMain {
-
+        Thread threadFibonachi;
         @FXML
         private ResourceBundle resources;
 
@@ -135,10 +135,10 @@ public class XMLFORMControllerMain {
         }
 
         public void btnCancel() {
-
+                threadFibonachi.stop();
                 new Alert(Alert.AlertType.WARNING, " Поиск Х остановлен (кнопкой Cancel) ").showAndWait();
-                new Alert(Alert.AlertType.WARNING, " Сохранение остановлено (кнопкой Cancel)  ").showAndWait();
-                new Alert(Alert.AlertType.WARNING, " Загрузка остановлена (кнопкой Cancel)  ").showAndWait();
+                /*new Alert(Alert.AlertType.WARNING, " Сохранение остановлено (кнопкой Cancel)  ").showAndWait();
+                new Alert(Alert.AlertType.WARNING, " Загрузка остановлена (кнопкой Cancel)  ").showAndWait();*/
         }
 
         public void btnFibonacci() {
@@ -187,7 +187,8 @@ public class XMLFORMControllerMain {
                                         }
                                 });
 
-                        new Thread(fibonacciTask).start();
+                        threadFibonachi = new Thread(fibonacciTask);
+                        threadFibonachi.start();
                         timer.setDaemon(true);
                         timer.start();
 
