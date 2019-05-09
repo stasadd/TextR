@@ -1,11 +1,17 @@
 package SB;
 
 import GV.Fibonacci;
+import GV.FibonacciTask;
 import TD.FileLoader;
 import ZD.FileSaver;
+import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 
 import java.net.URL;
@@ -39,8 +45,18 @@ public class XMLFORMControllerMain {
         private JFXTextArea idFile;
 
         @FXML
+        private JFXProgressBar idProgress;
+
+        @FXML
+        private Label idProcessProgress;
+
+        @FXML
+        private Label idProcessPercent;
+
+        @FXML
         void initialize() {
                 idFilePath.setText("C:\\Users\\td779\\Desktop\\text.txt");
+                idProgress.setProgress(0);
         }
 
         public  void btnSave (){
@@ -50,7 +66,6 @@ public class XMLFORMControllerMain {
                                 FileSaver.saveString(idFilePath.getText(), idFile.getText());
                         }
                 }).start();
-
         }
 
         public void btnLoad (){
@@ -67,41 +82,23 @@ public class XMLFORMControllerMain {
         }
 
         public void btnFibonacci(){
+                try {
+                        FibonacciTask fibonacciTask = new FibonacciTask(idFildFibonachi.getText());
+                        idProgress.progressProperty().unbind();
+                        idProgress.progressProperty().bind(fibonacciTask.progressProperty());
+                        fibonacciTask.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,
+                                new EventHandler<WorkerStateEvent>() {
+                                        @Override
+                                        public void handle(WorkerStateEvent event) {
+                                                String rezult = fibonacciTask.getValue();
+                                                FileSaver.saveString("C:\\Users\\td779\\Desktop\\text3.txt", rezult);
+                                        }
+                                });
+                        new Thread(fibonacciTask).start();
+                }
+                catch (Exception ex) {
 
-//                try {
-//                        ExecutorService service = Executors.newFixedThreadPool(10);
-//                        String number = idFildFibonachi.getText();
-//                        Fibonacci fibonacci = new Fibonacci(number);
-//                        Callable<String> c = new Callable<String>() {
-//                                @Override
-//                                public String call() throws Exception {
-//                                        return fibonacci.createRezult();
-//                                }
-//                        };
-//                        Future<String> futureCollable = service.submit(c);
-//                        FileSaver.saveString("C:\\Users\\td779\\Desktop\\text2.txt", futureCollable.get());
-//
-//                        service.shutdown();
-//
-//                } catch (Exception ex) {
-//                        System.out.println("error");
-//                }
-
-                new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                                String number = idFildFibonachi.getText();
-                                try {
-                                        Fibonacci fibonacci = new Fibonacci(number);
-                                        String rezult = fibonacci.createRezult();
-                                        FileSaver.saveString("C:\\Users\\td779\\Desktop\\text2.txt", rezult);
-
-                                } catch (Exception ex) {
-                                        System.out.println("error fibonachi");
-                                }
-                        }
-                }).start();
-
+                }
         }
 }
 
