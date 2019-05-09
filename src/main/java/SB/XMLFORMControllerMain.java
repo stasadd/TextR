@@ -42,6 +42,9 @@ public class XMLFORMControllerMain {
         private MenuItem idSave;
 
         @FXML
+        private MenuItem idCansel;
+
+        @FXML
         private JFXTextField idFilePath;
 
         @FXML
@@ -69,19 +72,23 @@ public class XMLFORMControllerMain {
                 new Thread(new Runnable() {
                         @Override
                         public void run() {
-                                Platform.runLater(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                                setStatus(Status.Saving);
-                                        }
-                                });
-                                FileSaver.saveString(idFilePath.getText(), idFile.getText());
-                                Platform.runLater(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                                setStatus(Status.Ready);
-                                        }
-                                });
+                                try {
+                                        Platform.runLater(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                        setStatus(Status.Saving);
+                                                }
+                                        });
+                                        FileSaver.saveString(idFilePath.getText(), idFile.getText());
+                                        Platform.runLater(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                        setStatus(Status.Ready);
+                                                }
+                                        });
+                                } catch (Exception ex) {
+                                        //todo
+                                }
                         }
                 }).start();
         }
@@ -115,6 +122,10 @@ public class XMLFORMControllerMain {
                                 }
                         }
                 }).start();
+        }
+
+        public void btnCancel() {
+
         }
 
         public void btnFibonacci(){
@@ -161,7 +172,7 @@ public class XMLFORMControllerMain {
 
                 }
                 catch (Exception ex) {
-                        new ErrorMassage().ShowMessage("fff", (Stage) idProgress.getScene().getWindow());
+                        //new ErrorMassage().ShowMessage("fff", (Stage) idProgress.getScene().getWindow());
                 }
         }
 

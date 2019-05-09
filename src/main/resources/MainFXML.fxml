@@ -24,7 +24,7 @@
                   <items>
                     <MenuItem fx:id="idLoad" mnemonicParsing="false" onAction="#btnLoad" text="Load" />
                         <MenuItem fx:id="idSave" mnemonicParsing="false" onAction="#btnSave" text="Save" />
-                        <MenuItem fx:id="idCansel" mnemonicParsing="false" onAction="#btnLoad" text="Cansel" />
+                        <MenuItem fx:id="idCansel" mnemonicParsing="false" onAction="#btnCancel" text="Cansel" />
                   </items>
                 </Menu>
               </menus>
