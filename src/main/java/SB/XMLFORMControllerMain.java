@@ -14,6 +14,7 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
@@ -87,7 +88,7 @@ public class XMLFORMControllerMain {
                                                 }
                                         });
                                 } catch (Exception ex) {
-                                        //todo
+                                        new Alert(Alert.AlertType.ERROR, " Не удалось сохранить в файл  ").showAndWait();
                                 }
                         }
                 }).start();
@@ -115,10 +116,8 @@ public class XMLFORMControllerMain {
                                         });
                                 } catch (Exception ex) {
                                         System.out.println("file not found");
-                                        JOptionPane.showMessageDialog(null,
-                                                "Файл для загрузки не найден",
-                                                "TITLE",
-                                                JOptionPane.WARNING_MESSAGE);
+                                        new Alert(Alert.AlertType.ERROR, " Файл для загрузки не найден  ").showAndWait();
+
                                 }
                         }
                 }).start();
@@ -126,11 +125,27 @@ public class XMLFORMControllerMain {
 
         public void btnCancel() {
 
+                new Alert(Alert.AlertType.WARNING, " Поиск Х остановлен (кнопкой Cancel) ").showAndWait();
+                new Alert(Alert.AlertType.WARNING, " Сохранение остановлено (кнопкой Cancel)  ").showAndWait();
+                new Alert(Alert.AlertType.WARNING, " Загрузка остановлена (кнопкой Cancel)  ").showAndWait();
         }
 
-        public void btnFibonacci(){
+        public void btnFibonacci() {
                 setStatus(Status.Xsearching);
+                String ErrorMs = null;
                 try {
+
+
+                        try {
+
+                                Integer.parseInt(idFildFibonachi.getText());
+                        } catch (Exception e) {
+                                if (idFildFibonachi.getText().contains(".") || idFildFibonachi.getText().contains(","))
+                                        ErrorMs = "Число должно быть целым (если оно дробное)";
+                                else
+                                        ErrorMs = "Значение должно быть числовым (если текст)";
+
+                        }
                         FibonacciTask fibonacciTask = new FibonacciTask(idFildFibonachi.getText());
                         idProgress.progressProperty().unbind();
                         idProgress.progressProperty().bind(fibonacciTask.progressProperty());
@@ -140,7 +155,7 @@ public class XMLFORMControllerMain {
                                 public void run() {
                                         try {
                                                 int perc = fibonacciTask.getPercentage();
-                                                while(perc <= 100){
+                                                while (perc <= 100) {
                                                         int finalPerc = perc;
                                                         Platform.runLater(new Runnable() {
                                                                 @Override
@@ -150,29 +165,33 @@ public class XMLFORMControllerMain {
                                                         });
                                                         perc = fibonacciTask.getPercentage();
                                                         Thread.sleep(200);
-                                                        if(perc > 100) break;
+                                                        if (perc > 100) break;
                                                 }
-                                        } catch (Exception ex) {}
+                                        } catch (Exception ex) {
+                                        }
                                 }
                         });
+
 
                         fibonacciTask.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED,
                                 new EventHandler<WorkerStateEvent>() {
                                         @Override
+
                                         public void handle(WorkerStateEvent event) {
+
                                                 String rezult = fibonacciTask.getValue();
                                                 FileSaver.saveString("C:\\Users\\td779\\Desktop\\text3.txt", rezult);
                                                 setStatus(Status.Ready);
                                         }
                                 });
 
+
                         new Thread(fibonacciTask).start();
                         timer.setDaemon(true);
                         timer.start();
 
-                }
-                catch (Exception ex) {
-                        //new ErrorMassage().ShowMessage("fff", (Stage) idProgress.getScene().getWindow());
+                } catch (Exception ex) {
+                        new Alert(Alert.AlertType.ERROR, " Неверный формат \n" + ErrorMs).showAndWait();
                 }
         }
 

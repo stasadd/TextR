@@ -1,5 +1,7 @@
 package ZD;
 
+import javafx.scene.control.Alert;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -15,6 +17,7 @@ public abstract class FileSaver
         catch(IOException ex)
         {
             System.out.println(ex.getMessage());
+            new Alert(Alert.AlertType.ERROR, " Файл для сохранения не найден  ").showAndWait();
         }
         System.out.println("SAVED!");
     }
