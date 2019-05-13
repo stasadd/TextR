@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
@@ -107,7 +108,7 @@ public class XMLFORMControllerMain {
         }
 
         public  void btnSave (){
-                if(idFilePath.getText().isEmpty()) {
+                if(idFilePath.getText().isEmpty() || new File(idFilePath.getText()).isFile() == false) {
                         new Alert(Alert.AlertType.ERROR, " Файл для сохранения не найден  ").showAndWait();
                         return;
                 }
@@ -140,6 +141,7 @@ public class XMLFORMControllerMain {
                                                 setStatus(Status.Ready);
                                                 timer.interrupt();
                                                 threadSave = null;
+                                                setPercentage(100);
                                         }
                                 });
 
@@ -153,7 +155,7 @@ public class XMLFORMControllerMain {
         }
 
         public void btnLoad (){
-                if(idFilePath.getText().isEmpty()) {
+                if(idFilePath.getText().isEmpty() || new File(idFilePath.getText()).isFile() == false) {
                         new Alert(Alert.AlertType.ERROR, " Файл для загрузки не найден  ").showAndWait();
                         return;
                 }
@@ -229,6 +231,8 @@ public class XMLFORMControllerMain {
                         setProgress(0);
                         threadSave = null;
                 }
+
+
         }
 
         public void btnFibonacci() {
