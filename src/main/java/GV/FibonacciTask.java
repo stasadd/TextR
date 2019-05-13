@@ -36,6 +36,8 @@ public class FibonacciTask extends Task<String> {
             BigInteger help = findNumericArr(BigInteger.valueOf(i));
             outputdata+=help.toString();
             outputdata+=" ";
+
+            if(Thread.currentThread().isInterrupted()) return "";
         }
         return outputdata;
     }
