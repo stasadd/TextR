@@ -286,6 +286,11 @@ public class XMLFORMControllerMain {
 
                 } catch (Exception ex) {
                         new Alert(Alert.AlertType.ERROR, " Неверный формат \n" + ErrorMs).showAndWait();
+                        idProgress.progressProperty().unbind();
+                        setStatus(Status.Ready);
+                        setPercentage(0);
+                        setProgress(0);
+                        threadFibonachi = null;
                 }
         }
 

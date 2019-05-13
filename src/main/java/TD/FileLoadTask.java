@@ -26,7 +26,7 @@ public class FileLoadTask extends Task<String> {
             int size = fis.available();
             byte[] buffer = new byte[size];
             fis.read(buffer, 0, size);
-            for(int i =0; i < buffer.length; i++) {
+            for(int i = 0; i < buffer.length; i++) {
                 output += (char)buffer[i];
                 this.updateProgress(output.length(), size);
                 if(Thread.currentThread().isInterrupted()) return "";
