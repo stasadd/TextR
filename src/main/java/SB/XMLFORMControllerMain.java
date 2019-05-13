@@ -75,8 +75,6 @@ public class XMLFORMControllerMain {
                 idFilePath.setText("C:\\Users\\td779\\Desktop\\text.txt");
                 setProgress(0);
 
-
-
                 idFile.textProperty().addListener(new ChangeListener<String>() {
                         @Override
                         public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -107,7 +105,7 @@ public class XMLFORMControllerMain {
                 });
         }
 
-        public  void btnSave (){
+        public void btnSave (){
                 if(idFilePath.getText().isEmpty() || new File(idFilePath.getText()).isFile() == false) {
                         new Alert(Alert.AlertType.ERROR, " Файл для сохранения не найден  ").showAndWait();
                         return;
@@ -189,6 +187,7 @@ public class XMLFORMControllerMain {
                                                 setStatus(Status.Ready);
                                                 timer.interrupt();
                                                 threadLoad = null;
+                                                setPercentage(100);
                                         }
                                 });
 
@@ -277,6 +276,7 @@ public class XMLFORMControllerMain {
                                                 setStatus(Status.Ready);
                                                 timer.interrupt();
                                                 threadFibonachi = null;
+                                                setPercentage(100);
                                         }
                                 });
 
